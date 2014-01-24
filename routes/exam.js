@@ -18,7 +18,7 @@ exports.list = function(req, res) {
                 exam.textTime = time.substr(0, time.length-match[1].length)
             }
         });
-        res.render("exams", {title: "Zoznam písomiek", exams: exams});
+        res.render("exams", {title: "Zoznam písomiek", exams: exams, user: req.user});
     }).error(res.error);
 }
 

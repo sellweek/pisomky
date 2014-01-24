@@ -1,17 +1,21 @@
 extends layout
 
 block content
-	each exam in exams
-		div.panel.panel-default
-			div.panel-heading
-				span.lead= exam.subject.name
-				span.pull-right= exam.textTime
-			div.panel-body= exam.topic
-			div.panel-footer
-				case exam.group
-					when 0
-						|Písomku píšu obidve skupiny
-					when 1 
-						|Len prvá skupina
-					when 2 
-						|Len druhá skupina
+    each exam in exams
+        div.panel.panel-default
+            div.panel-heading
+                span.lead= exam.subject.name
+                span.pull-right= exam.textTime
+            div.panel-body= exam.topic
+            div.panel-footer
+                case exam.group
+                    when 0
+                        |Písomku píšu obidve skupiny
+                    when 1 
+                        |Len prvá skupina
+                    when 2 
+                        |Len druhá skupina
+                if user
+                    form.button-form.pull-right(action="/exam/"+exam.id method="POST")
+                      input(type="hidden" name="_method" value="delete")
+                      button.btn.btn-xs.btn-danger(type="submit") Vymazať

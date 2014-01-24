@@ -5,3 +5,8 @@ header {
 main {
 	margin-top: 10px;
 }
+
+.button-form {
+	margin: 0px;
+	display: inline;
+}

@@ -1,18 +1,27 @@
 extends layout
 
 block content
-  ul
+  table.table
+    tr
+      th Názov
+      th Skratka
+      th
     each subject in subjects
-      li #{subject.name} (#{subject.abbreviation})
-        form(action="/subject/"+subject.id method="POST")
-          input(type="hidden" name="_method" value="delete")
-          input(type="submit" value="Vymazať")
+      tr
+        td= subject.name 
+        td= subject.abbreviation
+        td
+          form.button-form.pull-right(action="/subject/"+subject.id method="POST")
+            input(type="hidden" name="_method" value="delete")
+            button.btn.btn-sm.btn-danger(type="submit") Vymazať
   h2 Pridať predmet
   form(action="/subject" method="POST")
-    |Názov predmetu:
-    input(type="text" name="name")
-    br
-    |Skratka: 
-    input(type="text" name="abbreviation")
-    br
-    input(type="submit")
+    div.form-group 
+      label(for="name")
+        |Názov predmetu
+      input#name.form-control(type="text" name="name")
+    div.form-group
+      label(for="abbrev")
+        |Skratka
+      input#abbrev.form-control(type="text" name="abbreviation")
+    button.btn.btn-primary(type="submit") Pridať predmet
