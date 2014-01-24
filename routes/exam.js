@@ -8,7 +8,6 @@ exports.list = function(req, res) {
 		order: "date ASC",
 		include: [db.Subject]
 	}).success(function(exams) {
-		console.log(exams[0]);
         res.render("exams", {title: "Zoznam písomiek", exams: exams});
     }).error(res.error);
 }
