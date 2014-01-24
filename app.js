@@ -9,7 +9,17 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , db = require("./models")
-  , error = require("./error.js").error;
+  , error = require("./error.js").error
+  , passport = require("passport")
+  , BasicStrategy = require("passport-http").BasicStrategy;
+
+passport.use(new BasicStrategy(function(username, password, done) {
+  if (username == "gpm110" && password == "110") {
+    return done(null, true);
+  } else {
+    return done(null, false);
+  }
+}));
 
 var app = express();
 
@@ -21,7 +31,11 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(error("error"))
+app.use(express.cookieParser());
+app.use(express.session({secret: "YYBKCwdeWu"}))
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(error("error"));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -30,13 +44,13 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/subject', subject.list);
-app.post("/subject", subject.submit);
-app.delete("/subject/:id", subject.delete)
+app.get('/subject', passport.authenticate('basic', {session: false}), subject.list);
+app.post("/subject", passport.authenticate('basic', {session: false}), subject.submit);
+app.delete("/subject/:id", passport.authenticate('basic', {session: false}), subject.delete)
 app.get('/', exam.list);
-app.post("/exam", exam.submit);
-app.get("/exam/new", exam.add);
-app.delete("/exam/:id", exam.delete)
+app.post("/exam", passport.authenticate('basic', {session: false}), exam.submit);
+app.get("/exam/new", passport.authenticate('basic', {session: false}), exam.add);
+app.delete("/exam/:id", passport.authenticate('basic', {session: false}), exam.delete)
 
 db
   .sequelize
