@@ -18,13 +18,13 @@ exports.list = function(req, res) {
                 exam.textTime = time.substr(0, time.length-match[1].length)
             }
         });
-        res.render("exams", {title: "Zoznam písomiek", exams: exams, user: req.user});
+        res.render("exams", {title: "Zoznam písomiek", exams: exams, authenticated: req.user});
     }).error(res.error);
 }
 
 exports.add = function(req, res) {
     db.Subject.findAll({attributes: ["id", "name"]}).success(function(subjects){
-        res.render("add-exam", {title: "Pridať písomku", subjects: subjects});
+        res.render("add-exam", {title: "Pridať písomku", subjects: subjects, authenticated: req.user});
     }).error(res.error);
 }
 

@@ -2,7 +2,7 @@ var db = require("../models")
 
 exports.list = function(req, res) {
 	db.Subject.findAll().success(function(subjects) {
-		res.render("subjects", {title: "Zoznam predmetov", subjects: subjects});
+		res.render("subjects", {title: "Zoznam predmetov", subjects: subjects, authenticated: req.user});
 	}).error(res.error);
 }
 

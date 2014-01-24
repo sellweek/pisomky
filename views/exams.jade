@@ -15,7 +15,7 @@ block content
                         |Len prvá skupina
                     when 2 
                         |Len druhá skupina
-                if user
+                if authenticated
                     form.button-form.pull-right(action="/exam/"+exam.id method="POST")
                       input(type="hidden" name="_method" value="delete")
                       button.btn.btn-xs.btn-danger(type="submit") Vymazať
