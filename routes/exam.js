@@ -1,5 +1,6 @@
 var db = require("../models")
-	, moment = require("moment");
+	, moment = require("moment")
+	, _ = require("lodash");
 
 exports.list = function(req, res) {
     var d = new Date()
@@ -8,6 +9,10 @@ exports.list = function(req, res) {
 		order: "date ASC",
 		include: [db.Subject]
 	}).success(function(exams) {
+		_.forEach(exams, function(exam) {
+			time = moment(exam.date).lang("sk").calendar();
+			exam.textTime = time.substring(0, time.length-7)
+		});
         res.render("exams", {title: "Zoznam písomiek", exams: exams});
     }).error(res.error);
 }
