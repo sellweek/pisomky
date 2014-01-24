@@ -14,7 +14,18 @@ var express = require('express')
   , BasicStrategy = require("passport-http").BasicStrategy;
 
 passport.use(new BasicStrategy(function(username, password, done) {
-  if (username == "gpm110" && password == "110") {
+  var correctUsername, correctPassword
+  if (process.env.logInUsername) {
+    correctUsername = process.env.logInUsername
+  } else {
+    correctUsername = "test"
+  }
+  if (process.env.logInPassword) {
+    correctPassword = process.env.logInPassword
+  } else {
+    correctPassword = "test"
+  }
+  if (username == correctUsername && password == correctPassword) {
     return done(null, true);
   } else {
     return done(null, false);
