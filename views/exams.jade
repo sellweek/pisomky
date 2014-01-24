@@ -1,8 +1,17 @@
 extends layout
 
 block content
-	h1 Zoznam nadchádzajúcich písomiek
-	ul
-		each exam in exams
-			li.
-				#{exam.topic} - #{exam.textTime} (#{exam.subject.abbreviation})
+	each exam in exams
+		div.panel.panel-default
+			div.panel-heading
+				span.lead= exam.subject.name
+				span.pull-right= exam.textTime
+			div.panel-body= exam.topic
+			div.panel-footer
+				case exam.group
+					when 0
+						|Písomku píšu obidve skupiny
+					when 1 
+						|Len prvá skupina
+					when 2 
+						|Len druhá skupina

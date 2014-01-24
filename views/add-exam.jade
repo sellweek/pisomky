@@ -1,23 +1,26 @@
 extends layout
 
 block content
-	h1 Pridať písomku
 	form(action="/exam", method="POST")
-		|Téma písomky:
-		input(type="text" name="topic")
-		br
-		|Predmet
-		select(name="SubjectId")
-			each subject in subjects
-				option(value=subject.id)= subject.name
-		br
-		|Dátum (zatiaľ vo formáte YYYY-MM-DD)
-		input(type="text", name="date")
-		br
-		|Skupina
-		select(name="group")
-			option(value=0) Obidve skupiny
-			option(value=1) 1. skupina
-			option(value=2) 2. skupina
-		br
+		div.form-group
+			label(for="subject")
+				|Predmet
+			select#subject.form-control(name="SubjectId")
+				each subject in subjects
+					option(value=subject.id)= subject.name
+		div.form-group
+			label(for="date")
+				|Dátum (zatiaľ vo formáte YYYY-MM-DD)
+			input#date.form-control(type="text", name="date")
+		div.form-group
+			label(for="group")
+				|Skupina
+			select#group.form-control(name="group")
+				option(value=0) Obidve skupiny
+				option(value=1) 1. skupina
+				option(value=2) 2. skupina
+		div.form-group
+			label(for="topic")
+				|Téma písomky:
+			textarea#topic.form-control(name="topic")
 		input(type="submit")
