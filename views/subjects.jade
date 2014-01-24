@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  ul
+    each subject in subjects
+      li #{subject.name} (#{subject.abbreviation})
+        form(action="/subject/"+subject.id method="POST")
+          input(type="hidden" name="_method" value="delete")
+          input(type="submit" value="Vymazať")
+  h2 Pridať predmet
+  form(action="/subject" method="POST")
+    |Názov predmetu:
+    input(type="text" name="name")
+    br
+    |Skratka: 
+    input(type="text" name="abbreviation")
+    br
+    input(type="submit")
