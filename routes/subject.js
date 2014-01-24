@@ -6,7 +6,10 @@ exports.list = function(req, res) {
 	}).error(res.error);
 }
 
-exports.add = function(req, res) {
+exports.submit = function(req, res) {
+	if (req.body.name === "" || req.body.abbreviation === "") {
+		res.error("Chýba názov alebo skratka predmetu!")
+	}
 	db.Subject.create(req.body).success(function() {
 		res.redirect("/subject");
 	}).error(res.error);

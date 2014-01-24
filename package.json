@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "Exams",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
     "jade": "*",
     "pg.js": "~2.11.1",
     "sequelize": "~1.7.0-rc2",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "moment": "~2.5.1"
   }
 }

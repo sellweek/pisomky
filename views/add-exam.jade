@@ -1,0 +1,23 @@
+extends layout
+
+block content
+	h1 Pridať písomku
+	form(action="/exam", method="POST")
+		|Téma písomky:
+		input(type="text" name="topic")
+		br
+		|Predmet
+		select(name="SubjectId")
+			each subject in subjects
+				option(value=subject.id)= subject.name
+		br
+		|Dátum (zatiaľ vo formáte YYYY-MM-DD)
+		input(type="text", name="date")
+		br
+		|Skupina
+		select(name="group")
+			option(value=0) Obidve skupiny
+			option(value=1) 1. skupina
+			option(value=2) 2. skupina
+		br
+		input(type="submit")

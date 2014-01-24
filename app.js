@@ -4,8 +4,8 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
   , subject = require('./routes/subject')
+  , exam = require("./routes/exam")
   , http = require('http')
   , path = require('path')
   , db = require("./models")
@@ -30,10 +30,13 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
 app.get('/subject', subject.list);
-app.post("/subject", subject.add);
+app.post("/subject", subject.submit);
 app.delete("/subject/:id", subject.delete)
+app.get('/', exam.list);
+app.post("/exam", exam.submit);
+app.get("/exam/new", exam.add);
+app.delete("/exam/:id", exam.delete)
 
 db
   .sequelize
