@@ -21,6 +21,16 @@ passport.use(new BasicStrategy(function(username, password, done) {
   }
 }));
 
+passport.serializeUser(function(user, done) {
+  if (user)
+    done(null, "true");
+});
+
+passport.deserializeUser(function(user, done) {
+  if (user = "true")
+    done(null, true)
+});
+
 var app = express();
 
 // all environments
@@ -44,13 +54,14 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/subject', passport.authenticate('basic', {session: false}), subject.list);
-app.post("/subject", passport.authenticate('basic', {session: false}), subject.submit);
-app.delete("/subject/:id", passport.authenticate('basic', {session: false}), subject.delete)
+app.get('/subject', passport.authenticate('basic', {session: true}), subject.list);
+app.post("/subject", passport.authenticate('basic', {session: true}), subject.submit);
+app.delete("/subject/:id", passport.authenticate('basic', {session: true}), subject.delete)
 app.get('/', exam.list);
-app.post("/exam", passport.authenticate('basic', {session: false}), exam.submit);
-app.get("/exam/new", passport.authenticate('basic', {session: false}), exam.add);
-app.delete("/exam/:id", passport.authenticate('basic', {session: false}), exam.delete)
+app.get('/exam', exam.list);
+app.post("/exam", passport.authenticate('basic', {session: true}), exam.submit);
+app.get("/exam/new", passport.authenticate('basic', {session: true}), exam.add);
+app.delete("/exam/:id", passport.authenticate('basic', {session: true}), exam.delete)
 
 db
   .sequelize
